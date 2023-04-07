@@ -8,18 +8,9 @@ function makeAiMove() {
         aiCell.textContent = currentPlayer;
         aiCell.dataset.player = currentPlayer;
 
-        if (checkWinner(currentPlayer)) {
-            alert(`Player ${currentPlayer} wins!`);
-            location.reload();
-            return;
-        }
+        getResults();
 
-        if (isBoardFull()) {
-            alert("It's a draw!");
-            location.reload();
-            return;
-        }
-    }, 300);
+    }, duration);
 }
 
 
@@ -52,7 +43,7 @@ function minimax(board, depth, isMaximizingPlayer) {
 
 function findBestMove() {
     let bestValue = -Infinity;
-    let bestMove = -1;
+    let bestMoves = [];
 
     for (let i = 0; i < cells.length; i++) {
         if (!cells[i].dataset.player) {
@@ -64,10 +55,14 @@ function findBestMove() {
 
             if (moveValue > bestValue) {
                 bestValue = moveValue;
-                bestMove = i;
+                bestMoves = [i];
+            } else if (moveValue === bestValue) {
+                bestMoves.push(i);
             }
         }
     }
 
-    return bestMove;
+    // Choose a random move from the bestMoves array
+    const randomIndex = Math.floor(Math.random() * bestMoves.length);
+    return bestMoves[randomIndex];
 }

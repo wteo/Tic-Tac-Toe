@@ -1,4 +1,7 @@
 const cells = document.querySelectorAll('.cell');
+const duration = 300;
+let currentPlayer;
+let gameEnded = false;
 
 function checkWinner(player, customBoard) {
     const winPatterns = [
@@ -16,3 +19,22 @@ function checkWinner(player, customBoard) {
 function isBoardFull() {
     return [...cells].every(cell => cell.dataset.player);
     }
+
+function getResults() {
+    if (checkWinner(currentPlayer)) {
+        setTimeout(() => {
+            alert(`Player ${currentPlayer} wins!`);
+            location.reload();
+        }, duration);
+        gameEnded = true; // Mark the game as ended
+        return;
+    }
+    
+    if (isBoardFull()) {
+        setTimeout(() => {
+            alert("It's a draw!");
+            location.reload();
+        }, duration);
+        return;
+    }
+}
