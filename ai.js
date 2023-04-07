@@ -5,7 +5,7 @@ function makeAiMove() {
         const aiCell = cells[bestMove];
 
         currentPlayer = 'O' // Switch to AI
-        aiCell.innerText = currentPlayer;
+        aiCell.textContent = currentPlayer;
         aiCell.dataset.player = currentPlayer;
 
         if (checkWinner(currentPlayer)) {
@@ -24,7 +24,7 @@ function makeAiMove() {
 
 
 function minimax(board, depth, isMaximizingPlayer) {
-    const winner = checkWinner(isMaximizingPlayer ? 'O' : 'X');
+    const winner = checkWinner(isMaximizingPlayer ? 'O' : 'X', board.map((player, index) => ({ dataset: { player } })));
 
     if (winner) {
         return winner === 'O' ? 10 - depth : depth - 10;
@@ -50,7 +50,6 @@ function minimax(board, depth, isMaximizingPlayer) {
     return bestValue;
 }
 
-
 function findBestMove() {
     let bestValue = -Infinity;
     let bestMove = -1;
@@ -58,8 +57,10 @@ function findBestMove() {
     for (let i = 0; i < cells.length; i++) {
         if (!cells[i].dataset.player) {
             cells[i].dataset.player = 'O'; // Make the move
+            cells[i].textContent = 'O'; // Update the textContent as well
             const moveValue = minimax([...cells].map(cell => cell.dataset.player), 0, false);
             cells[i].dataset.player = ''; // Undo the move
+            cells[i].textContent = ''; // Undo the textContent as well
 
             if (moveValue > bestValue) {
                 bestValue = moveValue;
