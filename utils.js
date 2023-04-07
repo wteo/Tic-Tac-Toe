@@ -20,11 +20,17 @@ function isBoardFull() {
     return [...cells].every(cell => cell.dataset.player);
     }
 
+function showOverlay(message) {
+    const overlay = document.querySelector(".overlay");
+    overlay.innerText = message;
+    overlay.style.display = "flex";
+}
+
 function getResults() {
     if (checkWinner(currentPlayer)) {
         setTimeout(() => {
-            alert(`Player ${currentPlayer} wins!`);
-            location.reload();
+            showOverlay(`Player ${currentPlayer} wins!`);
+            // location.reload();
         }, duration);
         gameEnded = true; // Mark the game as ended
         return;
@@ -32,9 +38,19 @@ function getResults() {
     
     if (isBoardFull()) {
         setTimeout(() => {
-            alert("It's a draw!");
-            location.reload();
+            showOverlay("It's a draw!");
+            // location.reload();
         }, duration);
         return;
     }
+}
+
+function resetGame() {
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.dataset.player = "";
+    });
+    gameEnded = false;
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "none";
 }

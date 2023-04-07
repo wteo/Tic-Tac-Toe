@@ -21,3 +21,4 @@ function handleClick(e) {
 
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
+document.querySelector(".overlay").addEventListener("click", resetGame);
