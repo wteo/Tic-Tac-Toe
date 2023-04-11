@@ -22,3 +22,12 @@ function handleClick(e) {
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
 document.querySelector(".overlay").addEventListener("click", resetGame);
+
+document.getElementById("player-starts").addEventListener("click", () => {
+    resetGame();
+});
+
+document.getElementById("ai-starts").addEventListener("click", () => {
+    resetGame();
+    makeAiMove();
+});

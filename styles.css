@@ -12,6 +12,21 @@ h1 {
     text-align: center;
 }
 
+.start-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
 .game-board {
     position: relative;
     display: grid;
